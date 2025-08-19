@@ -1,0 +1,60 @@
+<p>Please enter your flight details</p>
+<form method="post" action="/flight/details">
+    <div>
+      <label class="inline" for="airline">Airline:
+        <select name="airline" id="airline">
+          <% @airlines.each do |airline| %>
+            <option value="<%= airline %>"><%= airline %></option>
+          <% end %>
+        </select>
+      </label>
+    </div>
+    <div>
+      <label class="inline" for="number">Flight Number:
+        <select name="number" id="number">
+          <% (1..99).to_a.each do |number| %>
+            <option value=<%= number %>><%= number %></option>
+          <% end %>
+        </select>
+      </label>
+    </div>
+    <div>
+      <label class="inline" for="origin">Origin:
+        <select name="origin" id="origin">
+          <% @airports.each do |code| %>
+            <option value=<%= code %>><%= code %></option>
+          <% end %>
+        </select>
+      </label>
+    </div>
+    <div>
+      <label class="inline" for="destination">Destination:
+        <select name="destination" id="destination">
+          <% @airports.each do |code| %>
+            <option value=<%= code %>><%= code %></option>
+          <% end %>
+        </select>
+      </label>
+    </div>
+    <div>
+      <label class="inline" for="time">Departure Time:
+        <select name="hour" id="hour">
+          <% (0..12).to_a.each do |number| %>
+            <option value=<%= number %>><%= number %></option>
+          <% end %>
+        </select>
+        <select name="minute" id="minute">
+          <% (0..59).to_a.each do |number| %>
+            <option value=<%= number %>><%= number %></option>
+          <% end %>
+        </select>
+        <select name="meridiem" id="meridiem">
+          <option value="PM">PM</option>
+          <option value="AM">AM</option>
+        </select>
+      </label>
+    </div>
+    <button type="submit">Submit</button>
+</form>
+
+<a href="/">View Flights</a>

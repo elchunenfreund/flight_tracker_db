@@ -1,0 +1,13 @@
+source "https://rubygems.org"
+
+ruby "3.2.2"
+gem "sinatra"
+gem "sinatra-contrib"
+gem "rackup"
+gem "puma"
+gem "erubi"
+gem "bcrypt"
+gem "minitest"
+gem "rack-test"
+gem "redcarpet"
+gem "pg"

@@ -1,0 +1,12 @@
+<p>Your will be flying <%= session[:airline] %> flight number <%= session[:number] %> departing from <%= session[:origin] %> and heading to <%= session[:destination] %>, Departing at <%= session[:time] %></p>
+
+<form method="post" action="/flights/add">
+    <div>
+      <label for="flightname">Choose a name for your journey:
+        <input name="flightname" id="flightname" value=""/>
+      </label>
+    </div>
+    <button class="inline" type="submit">Save Flight</button>
+</form>
+
+<a href="/">New Flight</a>

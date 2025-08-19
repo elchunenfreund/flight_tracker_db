@@ -1,0 +1,12 @@
+<ul>
+  <% @flights.each do |flight, value| %>
+    <h3><%= flight %></h3>
+    <ul>
+      <% value.each do |k, v| %>
+        <li><%= k.capitalize %>: <%= v %></li>
+      <% end %>
+    </ul>
+  <% end %>
+</ul>
+
+<a href="/flights/add">Add A new Flight</a>
