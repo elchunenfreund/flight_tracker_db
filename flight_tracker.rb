@@ -5,6 +5,8 @@ require "redcarpet"
 require "yaml"
 require "bcrypt"
 
+require_relative "database_persistence"
+
 root = File.expand_path("..", __FILE__)
 
 configure do
@@ -12,41 +14,29 @@ configure do
   set :session_secret, SecureRandom.hex(32)
 end
 
-def airlines
-  YAML.load_file("airlines.yml")["airlines"]
-end
-
-def airports
-  YAML.load_file("airports.yml")["airport_codes"]
+before do
+  @storage = DatabasePersistence.new
 end
 
 get "/" do
-  @flights = YAML.load_file("flights.yml")
-  puts @flights.inspect
+  @flights = @storage.flights
   erb :flights
 end
 
 get "/flights/add" do
-  @airlines = airlines
-  @airports = airports
+  @airlines = @storage.airlines
+  @airports = @storage.airports
 
   erb :form
 end
 
 post '/flight/details' do
   if params[:origin] == params[:destination]
-    session[:message] = "You don't really want to take a flight that will arive at the same boring place you left from, or do you?"
+    session[:message] = "You don't really want to take a flight that will arrive at the same boring place you left from, or do you?"
     redirect "/flights/add"
   end
 
-  session[:airline] = params[:airline]
-  session[:number] = params[:number]
-  session[:origin] = params[:origin]
-  session[:destination] = params[:destination]
-  session[:hour] = "#{"%02d" % params[:hour]}"
-  session[:minute] = "#{"%02d" % params[:minute]}"
-  session[:meridiem] = params[:meridiem]
-  session[:time] = "#{session[:hour]}:#{session[:minute]} #{session[:meridiem]}"
+  @storage.add_new_flight(session, params[:airline], params[:number], params[:origin], params[:destination], params[:hour].to_i, params[:minute].to_i, params[:meridiem])
 
   session[:message] = "Your details have been saved."
 
@@ -54,22 +44,13 @@ post '/flight/details' do
 end
 
 post '/flights/add' do
-  flights = YAML.load_file("flights.yml")
+  flights = @storage.flights
   flight_names = flights.keys
   if flight_names.include?(params[:flightname])
-    session[:message] = "You allready have a flight with this name saved."
+    session[:message] = "You already have a flight with this name saved."
     redirect "/flights/add"
   else
-    flightname = params[:flightname]
-    flights[flightname] = { airline: session[:airline],
-                            number: session[:number],
-                            origin: session[:origin],
-                            destination: session[:destination],
-                            time: session[:time]  }
-
-    File.open("flights.yml", 'w') do |f|
-      f.write flights.to_yaml
-    end
+    @storage.save_flight(params[:flightname], session[:airline], session[:number], session[:origin], session[:destination], session[:time])
 
     session.clear
     session[:message] = "Your flight has been saved."
