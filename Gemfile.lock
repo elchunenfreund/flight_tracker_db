@@ -10,6 +10,8 @@ GEM
     mustermann (3.0.3)
       ruby2_keywords (~> 0.0.1)
     nio4r (2.7.4)
+    pg (1.6.1)
+    pg (1.6.1-arm64-darwin)
     puma (6.6.0)
       nio4r (~> 2.0)
     rack (3.1.16)
@@ -49,6 +51,7 @@ DEPENDENCIES
   bcrypt
   erubi
   minitest
+  pg
   puma
   rack-test
   rackup
