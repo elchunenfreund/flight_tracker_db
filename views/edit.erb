@@ -1,5 +1,5 @@
 <p>Please enter your flight details</p>
-<form method="post" action="/flight/details">
+<form method="post" action="/flights/<%=params[:flight_name]%>/edit">
     <div>
       <label class="inline" for="airline">Airline:
         <select name="airline" id="airline">

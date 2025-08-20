@@ -1,6 +1,11 @@
 <ul>
   <% @flights.each do |flight, value| %>
-    <h3><%= flight %></h3>
+    <h3><%=flight %></h3>
+    <a href="/flights/<%=flight %>/edit">Edit</a>
+    <form method="post" action="/flights/<%=flight %>/delete">
+      <input type="hidden" name="_method" value="delete">
+      <button type="submit">Delete</button>
+    <form>
     <ul>
       <% value.each do |k, v| %>
         <li><%= k.capitalize %>: <%= v %></li>
