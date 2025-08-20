@@ -1,10 +1,19 @@
-<html>
-  <title>Flight Tracker</title>
-  <link href="/tracker.css" rel="stylesheet" type="text/css"/>
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Flight Tracker</title>
+    <link href="/tracker.css" rel="stylesheet" type="text/css" />
+  </head>
   <body>
-    <% if session[:message] %>
-      <p class="message"><%= session.delete(:message) %></p>
-    <% end %>
-  <%= yield %>
+    <header class="header">
+      <h1>Flight Tracker</h1>
+    </header>
+    <main class="container">
+      <% if session[:message] %>
+        <p class="message"><%= session.delete(:message) %></p>
+      <% end %>
+      <%= yield %>
+    </main>
   </body>
 </html>
