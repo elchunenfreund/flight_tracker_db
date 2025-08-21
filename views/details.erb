@@ -1,12 +1,14 @@
-<p>Your will be flying <%= session[:airline] %> flight number <%= session[:flight_number] %> departing from <%= session[:origin] %> and heading to <%= session[:destination] %>, Departing at <%= session[:time] %></p>
+<h2>Confirm Details</h2>
+<p>You will be flying <%= session[:airline] %> flight number <%= session[:flight_number] %> departing from <%= session[:origin] %> and heading to <%= session[:destination] %>, departing at <%= session[:time] %>.</p>
 
 <form method="post" action="/flights/add">
-    <div>
-      <label for="flight_name">Choose a name for your journey:
-        <input name="flight_name" id="flight_name" value=""/>
-      </label>
-    </div>
-    <button class="inline" type="submit">Save Flight</button>
+  <div class="form-group">
+    <label for="flight_name">Choose a name for your journey</label>
+    <input type="text" name="flight_name" id="flight_name" value=""/>
+  </div>
+  <button class="inline" type="submit">Save Flight</button>
 </form>
 
-<a href="/">New Flight</a>
+<nav>
+  <a href="/">New Flight</a>
+</nav>

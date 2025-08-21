@@ -1,17 +1,36 @@
-<ul>
-  <% @flights.each do |flight, value| %>
-    <h3><%=flight %></h3>
-    <a href="/flights/<%=flight %>/edit">Edit</a>
-    <form method="post" action="/flights/<%=flight %>/delete">
-      <input type="hidden" name="_method" value="delete">
-      <button type="submit">Delete</button>
-    <form>
-    <ul>
-      <% value.each do |k, v| %>
-        <li><%= k.capitalize %>: <%= v %></li>
-      <% end %>
-    </ul>
-  <% end %>
-</ul>
+<nav>
+  <a href="/flights/add">Add a New Flight</a>
+</nav>
 
-<a href="/flights/add">Add A new Flight</a>
+<table>
+  <thead>
+    <tr>
+      <th>Name</th>
+      <th>Airline</th>
+      <th>Number</th>
+      <th>Origin</th>
+      <th>Destination</th>
+      <th>Time</th>
+      <th>Actions</th>
+    </tr>
+  </thead>
+  <tbody>
+    <% @flights.each do |flight, value| %>
+      <tr>
+        <td><%= flight %></td>
+        <td><%= value[:airline] %></td>
+        <td><%= value[:flight_number] %></td>
+        <td><%= value[:origin] %></td>
+        <td><%= value[:destination] %></td>
+        <td><%= value[:time] %></td>
+        <td>
+          <a href="/flights/<%= flight %>/edit">Edit</a>
+          <form class="inline" method="post" action="/flights/<%= flight %>/delete">
+            <input type="hidden" name="_method" value="delete">
+            <button type="submit">Delete</button>
+          </form>
+        </td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
